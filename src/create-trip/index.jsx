@@ -183,7 +183,10 @@ function CreateTrip() {
           <DialogHeader>
 
             <DialogDescription>
-              <img src="/logo.svg" />
+              <div className='flex items-center'>
+                <img src="/T.png" className='h-14 ml-5' />
+                <div className='text-[30px]'>RAVELOCITY</div>
+              </div>
               <h2 className='font-bold text-lg mt-7'>Sign In With Google</h2>
               <p>Sign in to the App with Google authentication securely</p>
 
