@@ -5,7 +5,7 @@ import { Button } from '../button'
 
 function Hero() {
   return (
-    <div className='flex flex-col items-center gap-9 w-screen h-screen bg-[url("/bg.jpg")] bg-cover overflow-hidden'>
+    <div className='flex flex-col items-center gap-9 w-screen h-screen lg:bg-[url("/bg.jpg")] bg-cover overflow-hidden'>
       
       <h1
       className='font-extrabold text-[50px] text-center mt-16'
