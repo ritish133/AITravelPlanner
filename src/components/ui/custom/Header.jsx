@@ -50,10 +50,12 @@ function Header() {
 
   return (
     <div className='p-3 shadow-sm flex justify-between items-center px-5 w-screen'>
+      <a href="/">
         <div className='flex items-center'>
           <img src="/T.png" className='h-14 ml-5' />
           <div className='text-[30px]'>RAVELOCITY</div>
         </div>
+      </a>
 
       <div>
         {user ?
