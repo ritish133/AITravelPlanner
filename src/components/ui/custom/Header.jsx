@@ -64,7 +64,7 @@ function Header() {
 
       <div>
         {user ? (
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 hide">
             <a href='https://ai-studio-project.vercel.app/'>
             <Button className={`hover:text-primary hover:font-bold transition-all cursor-pointer`}>AI Studio</Button>
             </a>
