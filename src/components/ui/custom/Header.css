@@ -1,0 +1,12 @@
+@media (max-width: 495px) {
+    .hide-on-small-screen {
+      display: none;
+    }
+  }
+
+@media (max-width: 370px) {
+    .hide-on-screen {
+      display: none;
+    }
+  }
+  
