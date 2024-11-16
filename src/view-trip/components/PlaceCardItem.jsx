@@ -29,8 +29,9 @@ function PlaceCardItem({place}) {
             <div>
                 <h2 className='font-bold text-lg'>{place.placeName}</h2>
                 <p className='text-sm text-gray-400'>{place.placeDetails}</p>
-                <h2 className='mt-2'>🕙 {place.timeToTravel}</h2>
-                {/* <h2 className='mt-2'>🎟️ {place.ticketPricing}</h2> */}
+                <h2 className='mt-2'>⏳ Travel Time: {place.timeToTravel}</h2>
+                <h2 className='mt-2'>🕒 Best Visiting Time: {place.bestTimeToVisit}</h2>
+                <h2 className='mt-2'>🎟️ {place.ticketPricing}</h2>
             </div>
         </div>
     </Link>

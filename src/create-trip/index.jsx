@@ -50,48 +50,84 @@ function CreateTrip() {
   })
 
   const OnGenerateTrip = async () => {
-
     const user = localStorage.getItem('user');
-
+  
     if (!user) {
-      setOpenDailog(true)
+      setOpenDailog(true);
       return;
     }
-
-    if (!formData?.noOfDays  || formData?.noOfDays < 1 || formData?.noOfDays > 5 || !formData?.location || !formData?.budget || !formData?.traveler) {
-      toast("Please fill all details")
+  
+    if (!formData?.noOfDays || formData?.noOfDays < 1 || formData?.noOfDays > 5 || !formData?.location || !formData?.budget || !formData?.traveler) {
+      toast("Please fill all details");
       return;
     }
     setLoading(true);
-    toast('Please wait... We are working on it...')
+    toast('Please wait... We are working on it...');
+    
     const FINAL_PROMPT = AI_PROMPT
       .replace('{location}', formData?.location?.label)
       .replace('{totalDays}', formData?.noOfDays)
       .replace('{traveler}', formData?.traveler)
-      .replace('{budget}', formData?.budget)
-      .replace('{totalDays}', formData?.noOfDays)
+      .replace('{budget}', formData?.budget);
+  
     const result = await chatSession.sendMessage(FINAL_PROMPT);
-
+  
     console.log("--", result?.response?.text());
     setLoading(false);
-    SaveAiTrip(result?.response?.text())
+    SaveAiTrip(result?.response?.text());
   }
-
+  
   const SaveAiTrip = async (TripData) => {
-
     setLoading(true);
-    const user = JSON.parse(localStorage.getItem('user'));
-    const docId = Date.now().toString()
-
-    await setDoc(doc(db, "AITrips", docId), {
-      userSelection: formData,
-      tripData: JSON.parse(TripData),
-      userEmail: user?.email,
-      id: docId
-    });
-    setLoading(false);
-    navigate('/view-trip/'+docId)
-  }
+  
+    // Clean the TripData to remove any extra formatting (like backticks, markdown, or extra characters)
+    let cleanedTripData = TripData.replace(/```json|```/g, '').trim();  // Remove markdown formatting
+    cleanedTripData = cleanedTripData.replace(/[\n\r]+/g, '');  // Remove newlines and carriage returns
+    cleanedTripData = cleanedTripData.replace(/\s{2,}/g, ' ');  // Remove multiple spaces
+  
+    console.log("Cleaned Trip Data:", cleanedTripData); // Log the cleaned data for inspection
+  
+    try {
+      // Check if cleanedTripData is a valid JSON string before parsing
+      if (isValidJson(cleanedTripData)) {
+        const parsedTripData = JSON.parse(cleanedTripData);
+  
+        const user = JSON.parse(localStorage.getItem('user'));
+        const docId = Date.now().toString();
+  
+        // Save the trip data to Firestore
+        await setDoc(doc(db, "AITrips", docId), {
+          userSelection: formData,
+          tripData: parsedTripData,
+          userEmail: user?.email,
+          id: docId,
+        });
+  
+        setLoading(false);
+        navigate('/view-trip/' + docId);
+      } else {
+        throw new Error('Invalid JSON structure');
+      }
+    } catch (error) {
+      setLoading(false);
+      console.error("Error parsing trip data:", error);
+      toast("An error occurred while saving your trip.");
+    }
+  };
+  
+  // Utility function to check if a string is valid JSON
+  const isValidJson = (string) => {
+    try {
+      JSON.parse(string);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  };
+  
+  
+  
+  
 
   const GetUserProfile = (tokenInfo) => {
     axios.get(`https://www.googleapis.com/oauth2/v1/userinfo?acess_token=${tokenInfo?.access_token}`, {
