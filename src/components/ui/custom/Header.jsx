@@ -65,11 +65,11 @@ function Header() {
       <div>
         {user ? (
           <div className="flex items-center gap-3 hide">
-            <a href='https://ai-studio-project.vercel.app/supportus'>
-            <Button className={`hover:text-primary hover:font-bold transition-all cursor-pointer`}>Support Us</Button>
-            </a>
             <a href='https://ai-studio-project.vercel.app/'>
             <Button className={`hover:text-primary hover:font-bold transition-all cursor-pointer`}>AI Studio</Button>
+            </a>
+            <a href='https://ai-studio-project.vercel.app/supportus'>
+            <Button className={`hover:text-primary hover:font-bold transition-all cursor-pointer`}>Support Us</Button>
             </a>
             <a href="/create-trip">
               <Button variant="outline" className="rounded-full">
@@ -104,12 +104,12 @@ function Header() {
           </div>
         ) : (
           <div className="flex gap-5">
-            <a href='https://ai-studio-project.vercel.app/supportus'>
-            <Button className={`hover:text-primary hover:font-bold transition-all cursor-pointer`}>Support Us</Button>
-            </a>
           <a href='https://ai-studio-project.vercel.app/' >
           <Button className="hover:text-primary hover:font-bold transition-all cursor-pointer hide-on-small-screen">AI Studio</Button>
           </a>
+            <a href='https://ai-studio-project.vercel.app/supportus'>
+            <Button className={`hover:text-primary hover:font-bold transition-all cursor-pointer`}>Support Us</Button>
+            </a>
           <Button onClick={() => setOpenDailog(true)} className="hide-on-screen">Sign In</Button>
           </div>
           
